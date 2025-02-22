@@ -1,0 +1,13 @@
+---
+- name: Install Bun runtime
+  hosts: api_servers
+  gather_facts: no
+  tasks:
+    - name: Update package list
+      raw: apt-get update
+    - name: Install curl and unzip
+      raw: apt-get install -y curl unzip
+    - name: Download and install Bun
+      raw: curl -fsSL https://bun.sh/install | bash
+    - name: Add Bun to PATH
+      raw: echo 'export BUN_INSTALL="/root/.bun"' >> ~/.bashrc && echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> ~/.bashrc
